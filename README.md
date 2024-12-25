@@ -16,4 +16,5 @@ Extract name and bib from entry list.
 ## Executin
 `python ExtractNameWithBib.py [EntryList.pdf]`
 
-  
+## Note
+PDFMiner is currently the best tool for analyzing Japanese PDFs. Contributions from those with expertise in PDF or Python are welcome.
