@@ -12,14 +12,6 @@ import sys
 from io import StringIO
 from pdfminer.high_level import extract_text_to_fp
 
-args = sys.argv
-if len(args) != 3:
-    print('Usage: python ExtractNameWithBib.py [member.csv] [input.pdf]')
-    exit()
-
-member_list_fname = args[1]
-entry_list_fname = args[2]
-
 # Read PDF as plane text
 def extract_text_from_pdf(pdf_path):
     fp_out = StringIO()
@@ -36,6 +28,15 @@ def extract_member_from_list(list_path):
     with open(list_path, encoding='utf8', newline='') as f:
         reader = csv.reader(f)
         return [row for row in reader]
+
+### Main
+args = sys.argv
+if len(args) != 3:
+    print('Usage: python ExtractNameWithBib.py [member.csv] [input.pdf]')
+    exit()
+
+member_list_fname = args[1]
+entry_list_fname = args[2]
 
 text = extract_text_from_pdf(entry_list_fname)
 members = extract_member_from_list(member_list_fname)
