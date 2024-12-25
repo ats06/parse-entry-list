@@ -6,11 +6,15 @@ Extract name and bib from entry list.
 1. Install pdfminer.six  
   `pip install pdfminer.six`
 
-1. Create member list as CSV
-  CSV should be consisted as below.
+1. Create member list as CSV  
+  Add "Family Name, Last Name" in one line. Do not insert any spacecs. Below is the example 
   ```
   山田,太郎
-  トレイル,ランガ
+  桜木,花道
+  孫,悟空
+  トレイル,ラン
+  山,渓谷
+  ワンダー,フォーゲル
   ```
 
 ## Executin
