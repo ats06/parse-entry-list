@@ -14,12 +14,13 @@ from pdfminer.high_level import extract_text_to_fp
 from pathlib import Path
 
 args = sys.argv
-if len(args) != 2:
-    print('Usage: python pdf-parse.py [input.pdf]')
+if len(args) != 3:
+    print('Usage: python ExtractNameWithBib.py [member.csv] [input.pdf]')
     exit()
 
-entry_list_fname = args[1]
-member_list_fname = 'member_list.csv'  # Todo: Get file from args
+member_list_fname = args[1]
+entry_list_fname = args[2]
+#member_list_fname = 'member_list.csv'  # Todo: Get file from args
 
 # Read PDF into buffer
 fp_out = StringIO()
