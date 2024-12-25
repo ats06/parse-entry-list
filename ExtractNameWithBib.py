@@ -40,8 +40,7 @@ with open(member_list_fname, encoding='utf8', newline='') as f:
     for row in csvreader:
         # Find string "Family name + Zenkaku/Hankaku/Tab space + Last name".
         # Family name: row[0], Last name: row[1]
-        pattern = row[0] + '[\\u3000 \\t]' + row[1]   # FixMe: 甲州アルプスで姓名の間の全角スペースが検出できない
-        #pattern = row[0] + '(?:\s|　\\t)?' + row[1]  # WA for Koshu Alps 
+        pattern = row[0] + '[\\s\\u3000\\t]*' + row[1]
         m = re.search(pattern, text)
         if m != None:
             
