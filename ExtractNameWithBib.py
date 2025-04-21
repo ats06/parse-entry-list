@@ -9,6 +9,8 @@ import csv
 import re
 import sys
 
+import logging
+
 from io import StringIO
 from pdfminer.high_level import extract_text_to_fp
 
@@ -35,13 +37,16 @@ if len(args) != 3:
     print('Usage: python ExtractNameWithBib.py [member.csv] [input.pdf]')
     exit()
 
+# Don't show warning message "CropBox missing from /Page, defaulting to MediaBox".
+logging.getLogger('pdfminer').setLevel(logging.ERROR)
+
 member_list_fname = args[1]
 entry_list_fname = args[2]
 
 text = extract_text_from_pdf(entry_list_fname)
 members = extract_member_from_list(member_list_fname)
 
-print('===== Entries =====')
+print('===== %s =====' % entry_list_fname)
 for member in members:
     # Find string "Family name + Zenkaku/Hankaku/Tab space + Last name".
     # Family name: row[0], Last name: row[1]
