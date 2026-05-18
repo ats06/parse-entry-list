@@ -51,13 +51,33 @@ for member in members:
     # Find string "Family name + Zenkaku/Hankaku/Tab space + Last name".
     # Family name: row[0], Last name: row[1]
     pattern = member[0] + '[\\s\\u3000\\t]*' + member[1]
+
     m = re.search(pattern, text)
 
     if m != None:
         name = m.group().replace('\u3000', ' ')
         # Assume that bib number is in front of name within eight character.
         # Show the nearest one to name as bib number in case multiple figures found.
-        bib = re.findall(r'\d+', text[m.start()-4:m.start()])
-        bib_number = bib[-1] if bib else ''
-
-        print('{:<5} {}'.format(bib_number, name))
+        bib = re.findall(r'\d+[a-zA-Z]?', text[m.start()-5:m.start()])
+        if bib:
+            bib_candidate = bib[-1]
+            # Extract a part of numerics
+            match_digits = re.match(r'(\d+)([a-zA-Z]?)', bib_candidate)
+            if match_digits:
+                digits = match_digits.group(1)
+                suffix = match_digits.group(2)
+                # Up to 4 digits from the bottom
+                if len(digits) >= 5:
+                    digits = digits[1:]
+                bib_number = digits + suffix
+            else:
+                bib_number = bib_candidate
+        else:
+            bib_number = ''
+#        if bib_number == '':
+#            bib = re.findall(r'\d+', text[m.start()-4:m.start()])
+#            bib_number = bib[-1] if bib else ''
+        if member[2:3]:
+            print('{:<5} {} ({})'.format(bib_number, name, member[2]))
+        else:
+            print('{:<5} {}'.format(bib_number, name))
